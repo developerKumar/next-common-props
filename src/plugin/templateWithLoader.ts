@@ -1,5 +1,3 @@
-const commponProps = require("../common-props.config");
-
 function templateWithLoader(
   rawCode: string,
   {
@@ -13,8 +11,6 @@ function templateWithLoader(
 ) {
   console.log(page.replace("/", ""), "page");
   const currentPage = page.replace("/", "");
-  const commponPropsConfig = commponProps();
-  const currentPageConfig = commponPropsConfig[currentPage];
   const tokenToReplace = `__CODE_TOKEN_${Date.now().toString(16)}__`;
   let modifiedCode = rawCode;
 
