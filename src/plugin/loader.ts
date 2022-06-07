@@ -2,6 +2,16 @@
 const templateWithLoaderFunc = require("./templateWithLoader");
 const clearCommentsRgx = /\/\*[\s\S]*?\*\/|\/\/.*/g
 
+function hasExportName(data:string, name:string) {
+  return Boolean(
+    data.match(
+      new RegExp(`export +(const|var|let|async +function|function) +${name}`)
+    ) ||
+      data.match(
+        new RegExp(`export\\s*\\{[^}]*(?<!\\w)${name}(?!\\w)[^}]*\\}`, 'm')
+      )
+  )
+}
 function Loader(rawCode: string) {
   const {
     pagesPath,
@@ -30,9 +40,20 @@ function Loader(rawCode: string) {
     return rawCode
   }
 
+  const isDynamicPage = page.includes('[')
+  const isGetInitialProps = !!code.match(/\WgetInitialProps\W/g)
+  const isGetServerSideProps = hasExportName(code, 'getServerSideProps')
+  const isGetStaticPaths = hasExportName(code, 'getStaticPaths')
+  const isGetStaticProps = hasExportName(code, 'getStaticProps')
+  const hasLoader =
+    isGetStaticProps || isGetServerSideProps || isGetInitialProps
+  const loader =
+    isGetServerSideProps || (!hasLoader && isDynamicPage && !isGetStaticPaths)
+      ? 'getServerSideProps'
+      : 'getStaticProps'
   /** Ended HOC */
 
-  return templateWithLoaderFunc(rawCode, {pagesPath, page: pageNoExt})
+  return templateWithLoaderFunc(rawCode, {pagesPath, page: pageNoExt, hasLoader, loader})
 }
 
 module.exports = Loader;
