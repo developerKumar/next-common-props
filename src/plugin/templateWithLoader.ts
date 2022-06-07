@@ -95,9 +95,9 @@ function templateWithLoader(
   }
   modifiedCode = modifiedCode.replace(/(export(.*)default)/g, '');
   let template = `
-    import conf from '@next-common-root/utils/common-props.config.js'
+    import conf from '@next-common-root/common-props.config.js'
     import { useContext } from 'react';
-    import { CommonPropsProvider } from '@next-common-root/utils/commonPropsContext'
+    import { CommonPropsProvider } from '@next-common-root/commonPropsContext'
 
     ${tokenToReplace}
     export async function ${loader}(ctx) {
