@@ -1,5 +1,5 @@
 
-const templateWithLoader = require("./templateWithLoader");
+const templateWithLoaderFunc = require("./templateWithLoader");
 const clearCommentsRgx = /\/\*[\s\S]*?\*\/|\/\/.*/g
 
 function Loader(rawCode: string) {
@@ -32,7 +32,7 @@ function Loader(rawCode: string) {
 
   /** Ended HOC */
 
-  return templateWithLoader(rawCode, {pagesPath, page: pageNoExt})
+  return templateWithLoaderFunc(rawCode, {pagesPath, page: pageNoExt})
 }
 
 module.exports = Loader;

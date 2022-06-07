@@ -97,7 +97,7 @@ function templateWithLoader(
   let template = `
     import conf from '@next-common-root/common-props.config.js'
     import { useContext } from 'react';
-    import { CommonPropsProvider } from '@next-common-root/commonPropsContext'
+    import { CommonPropsProvider } from 'next-common-props/commonPropsContext'
 
     ${tokenToReplace}
     export async function ${loader}(ctx) {
@@ -146,4 +146,4 @@ function templateWithLoader(
   return finalCode;
 }
 
-export default templateWithLoader;
+module.exports = templateWithLoader;
