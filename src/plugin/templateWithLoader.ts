@@ -28,7 +28,7 @@ function templateWithLoader(
         ),
         (v) =>
           v.replace(new RegExp(`\\W${loader}\\W`), (r) =>
-            r.replace(loader, "_" + loader)
+            r.replace(loader, "__" + loader)
           )
       )
       // Replacing:
@@ -120,7 +120,7 @@ function templateWithLoader(
 
       const MyComponent = props => {
         return (
-           <CommonPropsProvider value={props.common}>
+           <CommonPropsProvider value={props || {empty: ''}}>
               <WrappedComponent {...props} />
            </CommonPropsProvider>
          );
