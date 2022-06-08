@@ -37,7 +37,7 @@ function templateWithLoader(
       //    const _getStaticProps = () => ({ props: {} })
       .replace(
         new RegExp(
-          `export +(const|var|let|async +function|function) +_${loader}`
+          `export +(const|var|let|async +function|function) +__${loader}`
         ),
         (v) => v.replace("export", "")
       )
@@ -68,7 +68,7 @@ function templateWithLoader(
       .replace(/^ *import +{( |\n)*[^}]*/gm, (v) => {
         if (v.match(new RegExp(`\\W+${loader} +as `))) return v;
         return v.replace(new RegExp(`\\W+${loader}(\\W|$)`), (r) =>
-          r.replace(loader, `${loader} as _${loader}`)
+          r.replace(loader, `${loader} as __${loader}`)
         );
       });
   }
@@ -105,7 +105,7 @@ function templateWithLoader(
         }
         
       }
-        ${hasLoader ? `let res = _${loader}(ctx)` : ""}
+        ${hasLoader ? `let res = __${loader}(ctx)` : ""}
         ${hasLoader ? `if(typeof res.then === 'function') res = await res` : ""}
         return {
           ${hasLoader && revalidate > 0 ? `revalidate: ${revalidate},` : ""}
