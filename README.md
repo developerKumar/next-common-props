@@ -1,6 +1,6 @@
-<Center>*Easy props sharing with nested components without drilling for Next.js +10*</Center>
+<Center>Easy props sharing with nested components without drilling for Next.js +10</Center>
 
-<Center>*Next plugin*</Center>
+<Center>Next plugin</Center>
 
 **The main goal of this library is to avoid the prop drilling as simple as possible in a Next.js environment.**
 
@@ -35,7 +35,7 @@ Next-translate ensures that each page only has its props. So if we have 100 comm
 In order to do this we use a  **webpack loader**  that loads the necessary translation files inside the Next.js methods (**getStaticProps**,  **getServerSideProps**  or  **getInitialProps**). If you have one of these methods already on your page, the webpack loader will use your own method, but the defaults it will use are:
 
 -   **`getStaticProps`**. This is the  **default method used on most pages**, unless it is a page specified in the next two points. This is for performance, so the calculations are done in build time instead of request time.
--   **`getServerSideProps`**. This is the  **default method for dynamic pages**  like  `[slug].js`  or  `[...catchall].js`. This is because for these pages it is necessary to define the  `getStaticPaths`  and there is no knowledge of how the slugs should be for each locale. Likewise, how is it by default, only that you write the getStaticPaths then it will already use the getStaticProps to load the translations.
+-   **`getServerSideProps`**. This is the  **default method for dynamic pages**  like  `[slug].js`  or  `[...catchall].js`. This is because for these pages it is necessary to define the  `getStaticPaths`  and there is no knowledge of how the props should be for each component. Likewise, how is it by default, only that you write the getStaticPaths then it will already use the getStaticProps to load the translations.
 -   **`getInitialProps`**. This is the  **default method for these pages that use a HoC**. This is in order to avoid conflicts because HoC could overwrite a  `getInitialProps`.
 
 This  **whole process is transparent**, so in your pages you can directly consume the  `useCommonProps`  hook to use the props, and you don't need to do anything else.
@@ -106,3 +106,5 @@ Example:
     }
 
 Where `common.mediaPosts.test` is accessed based on we will have to declare key as `mediaPosts` and `data` as a `function` which will return an object with key `test`.
+
+**Note: This only supports for functional components export.  We will support class based component soon in page.**

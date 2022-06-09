@@ -120,7 +120,7 @@ function templateWithLoader(
 
       const MyComponent = props => {
         return (
-           <CommonPropsProvider value={props || {empty: ''}}>
+           <CommonPropsProvider value={{common: props?.common || {}}}>
               <WrappedComponent {...props} />
            </CommonPropsProvider>
          );

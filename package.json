@@ -1,6 +1,6 @@
 {
   "name": "next-common-props",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Tiny and powerful tool (Next plugin + API) to let you avoid prop drilling and directly use props in any related component",
   "main": "./lib/cjs/index.js",
   "author": {
@@ -22,7 +22,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/developerKumar/next-common-props"
   },
   "scripts": {
     "build": "yarn clean && cross-env NODE_ENV=production && yarn tsc",
