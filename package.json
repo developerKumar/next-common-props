@@ -1,6 +1,6 @@
 {
   "name": "next-common-props",
-  "version": "1.0.17",
+  "version": "1.0.21",
   "description": "Tiny and powerful tool (Next plugin + API) to let you avoid prop drilling and directly use props in any related component",
   "main": "./lib/cjs/index.js",
   "author": {
@@ -59,7 +59,6 @@
     "pretty-quick": "^3.1.3",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "standard-version": "^9.5.0",
     "supertest": "^6.2.3",
     "typescript": "^4.7.3"
   },
@@ -85,5 +84,8 @@
     "transform": {
       "^.+\\.(j|t)sx?$": "babel-jest"
     }
+  },
+  "dependencies": {
+    "standard-version": "^9.5.0"
   }
 }
