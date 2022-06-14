@@ -1,6 +1,6 @@
 {
   "name": "next-common-props",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "Tiny and powerful tool (Next plugin + API) to let you avoid prop drilling and directly use props in any related component",
   "main": "./lib/cjs/index.js",
   "author": {
