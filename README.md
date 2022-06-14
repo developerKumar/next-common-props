@@ -108,3 +108,27 @@ Example:
 Where `common.mediaPosts.test` is accessed based on we will have to declare key as `mediaPosts` and `data` as a `function` which will return an object with key `test`.
 
 **Note: This only supports for functional components export.  We will support class based component soon in page.**
+
+### Demo from Next.js
+
+There is a demo of `next-translate` on the Next.js repo:
+
+- https://github.com/vercel/next.js/tree/master/examples/with-next-translate
+
+To use it:
+
+```bash
+npx create-next-app --example with-next-translate with-next-translate-app
+# or
+yarn create next-app --example with-next-translate with-next-translate-app
+```
+
+### Basic demo
+
+This demo for this repository:
+
+- `git clone git@github.com:developerKumar/next-common-props-example.git`
+- `cd next-common-props-example`
+- `yarn && yarn run dev`
+
+[Demo URL](https://next-common-props-example.vercel.app/)
