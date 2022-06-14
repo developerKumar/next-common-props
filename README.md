@@ -109,11 +109,7 @@ Where `common.mediaPosts.test` is accessed based on we will have to declare key 
 
 **Note: This only supports for functional components export.  We will support class based component soon in page.**
 
-### Demo from Next.js
-
-There is a demo of `next-common-props` on the Next.js repo:
-
-- https://github.com/developerkumar/next-common-props-example
+## 14. Demos
 
 ### Basic demo
 
