@@ -111,17 +111,9 @@ Where `common.mediaPosts.test` is accessed based on we will have to declare key 
 
 ### Demo from Next.js
 
-There is a demo of `next-translate` on the Next.js repo:
+There is a demo of `next-common-props` on the Next.js repo:
 
-- https://github.com/vercel/next.js/tree/master/examples/with-next-translate
-
-To use it:
-
-```bash
-npx create-next-app --example with-next-translate with-next-translate-app
-# or
-yarn create next-app --example with-next-translate with-next-translate-app
-```
+- https://github.com/developerkumar/next-common-props-example
 
 ### Basic demo
 
