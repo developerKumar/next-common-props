@@ -1,4 +1,4 @@
-import { hasHOC } from "../utils"
+import { hasHOC, isPageToIgnore } from "../utils"
 import templateWithHoc from "./templateWithHoc"
 
 const templateWithLoaderFunc = require('./templateWithLoader')
@@ -41,6 +41,11 @@ function Loader(rawCode: string) {
     console.log('in HOC, Not touching it now')
     return rawCode
   }
+
+  // There are some files that although they are inside pages, are not pages:
+  // _app, _document, /api... In that case, let's skip any transformation :)
+  if (isPageToIgnore(page)) return rawCode
+
   const isWrapperWithExternalHOC = hasHOC(code)
   const isDynamicPage = page.includes('[')
   const isGetInitialProps = !!code.match(/\WgetInitialProps\W/g)
