@@ -1,5 +1,6 @@
 import React from 'react'
 import { LoaderConfig } from '.'
+import { CommonPropsHOCProvider } from './commonPropsHOCContext'
 
 type Props = {
   [key: string]: any
@@ -32,21 +33,34 @@ export default function appWithCommonProps(
   }
 
   function AppToCommonProps(props: Props) {
-
-    return <AppToTranslate {...props}/>
+    return (
+      <CommonPropsHOCProvider value={props.common || props.pageProps.common}>
+        <AppToTranslate {...props} />
+      </CommonPropsHOCProvider>
+    )
   }
-
-  if (config.skipInitialProps) return AppToCommonProps
+  let { currentPageConfig } = config
+  const currnetPageConfigExists =
+    currentPageConfig && currentPageConfig.length > 0
+  if (config.skipInitialProps && !currnetPageConfigExists)
+    return AppToCommonProps
 
   AppToCommonProps.getInitialProps = async (appCtx: any) => {
     let appProps: object = { pageProps: {} }
 
+    let dProps: any = {}
+    if (currentPageConfig) {
+      for (let i = 0; i < currentPageConfig.length; i++) {
+        dProps[currentPageConfig[i].key] = await currentPageConfig[i].data()
+      }
+    }
     if (AppToTranslate.getInitialProps) {
       appProps = (await AppToTranslate.getInitialProps(appCtx)) || {}
     }
 
     return {
       ...appProps,
+      common: dProps,
     }
   }
 

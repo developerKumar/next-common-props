@@ -1,3 +1,5 @@
+import { hasHOC } from "../utils";
+
 function pkgDir() {
   try {
     return require("pkg-dir").sync() || process.cwd();
@@ -14,6 +16,7 @@ function nextCommonProp(nextConfig: any = {}) {
   const dir = path.resolve(
     path.relative(pkgDir(), process.env.NEXT_TRANSLATE_PATH || ".")
   );
+  let hasGetInitialPropsOnAppJs = false
 
   let pagesInDir = "";
   if (!pagesInDir) {
@@ -28,6 +31,15 @@ function nextCommonProp(nextConfig: any = {}) {
   }
 
   const pagesPath = path.join(dir, pagesInDir);
+  const app = fs
+    .readdirSync(pagesPath)
+    .find((page: string) => page.startsWith('_app.'))
+
+  if (app) {
+    const code = fs.readFileSync(path.join(pagesPath, app)).toString('UTF-8')
+    hasGetInitialPropsOnAppJs =
+      !!code.match(/\WgetInitialProps\W/g) || hasHOC(code)
+  }
 
   return {
     ...nextConfig,
@@ -54,6 +66,8 @@ function nextCommonProp(nextConfig: any = {}) {
             example: true,
             pagesPath,
             extensionsRgx: test,
+            hasGetInitialPropsOnAppJs,
+            hasAppJs: !!app
           },
         },
       });
