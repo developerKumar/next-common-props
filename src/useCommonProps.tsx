@@ -1,10 +1,7 @@
-import { useContext, useMemo } from "react";
-import CommonPropsContext from "./commonPropsContext";
+import { useContext, useMemo } from 'react'
+import CommonPropsHOCContext from './commonPropsHOCContext'
 
 export default function useCommonProps() {
-  const ctx = useContext(CommonPropsContext);
-  return useMemo(
-    () => (ctx),
-    [ctx]
-  );
+  const ctxAppJs = useContext(CommonPropsHOCContext)
+  return useMemo(() => ({ common: { ...ctxAppJs } }), [ctxAppJs])
 }

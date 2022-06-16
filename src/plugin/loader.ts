@@ -18,6 +18,8 @@ function Loader(rawCode: string) {
   const {
     pagesPath,
     extensionsRgx,
+    hasGetInitialPropsOnAppJs,
+    hasAppJs,
     // @ts-ignore
   } = this.query
 
@@ -25,6 +27,15 @@ function Loader(rawCode: string) {
   const normalizedResourcePath =
     // @ts-ignore
     this.resourcePath.replace(/\\/g, '/')
+  // In case that there aren't /_app.js we want to overwrite the default _app
+  // to provide the I18Provider on top.
+  if (normalizedResourcePath.includes('node_modules/next/dist/pages/_app')) {
+    // There are cases that a default appjs is served even if it already has
+    // an appjs defined. For example when using a class extended from NextApp.
+    // For these cases we must not overwrite it.
+    if (hasAppJs) return rawCode
+    return rawCode
+  }
 
   if (!normalizedResourcePath.startsWith(normalizedPagesPath)) return rawCode
   const page = normalizedResourcePath.replace(normalizedPagesPath, '/')
@@ -37,9 +48,17 @@ function Loader(rawCode: string) {
     return rawCode
   }
   /** started HOC */
+  if (hasGetInitialPropsOnAppJs) {
+    return pageNoExt === '//_app'
+      ? templateWithHoc(rawCode, { typescript, page: pageNoExt })
+      : rawCode
+  }
   if (pageNoExt === '//_app') {
-    console.log('in HOC, Not touching it now')
-    return rawCode
+    return templateWithHoc(rawCode, {
+      skipInitialProps: true,
+      typescript,
+      page: pageNoExt
+    })
   }
 
   // There are some files that although they are inside pages, are not pages:
@@ -56,7 +75,7 @@ function Loader(rawCode: string) {
     isGetStaticProps || isGetServerSideProps || isGetInitialProps
 
   if (isGetInitialProps || (!hasLoader && isWrapperWithExternalHOC)) {
-    return templateWithHoc(rawCode, { typescript })
+    return templateWithHoc(rawCode, { typescript, page: pageNoExt })
   }
   const loader =
     isGetServerSideProps || (!hasLoader && isDynamicPage && !isGetStaticPaths)
@@ -69,6 +88,7 @@ function Loader(rawCode: string) {
     page: pageNoExt,
     hasLoader,
     loader,
+    typescript,
   })
 }
 

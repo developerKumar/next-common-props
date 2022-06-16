@@ -81,3 +81,6 @@ export function hasExportName(data: string, name: string) {
       )
   )
 }
+export const NAMES = {
+  COMMON_FILE_NAME: '/_app'
+}

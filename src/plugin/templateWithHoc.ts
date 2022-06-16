@@ -6,7 +6,7 @@ export default function templateWithHoc(
     skipInitialProps = false,
     typescript = false,
     pageName = '__Page_Next_Common__',
-    hasLoadLocaleFrom = false,
+    page = '',
   } = {}
 ) {
   const tokenToReplace = `__CODE_TOKEN_${Date.now().toString(16)}__`
@@ -29,13 +29,18 @@ export default function templateWithHoc(
       `${pageName}.getInitialProps`
     )
   }
+  const currentPage = page.replace("/", "");
 
   let template = `
     import appWithCommonProps from 'next-common-props/appWithCommonProps'
+    import conf from '@next-common-root/common-props.config.js'
+    let currentPageConfig = conf()['${currentPage}']
+    
     ${tokenToReplace}
     export default appWithCommonProps(__Page_Next_Common__, {
       isLoader: true,
       skipInitialProps: ${skipInitialProps},
+      currentPageConfig
     });
   `
 
