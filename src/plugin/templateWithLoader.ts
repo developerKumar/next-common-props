@@ -75,7 +75,7 @@ function templateWithLoader(
   }
 
   let template = `
-    import conf from '@next-common-root/common-props.config.js'
+    import conf from '@next-common-root/common-props.config'
 
     ${tokenToReplace}
     export async function ${loader}(ctx) {
