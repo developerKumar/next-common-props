@@ -75,10 +75,10 @@ function templateWithLoader(
   }
 
   let template = `
-    import conf from '@next-common-root/common-props.config'
 
     ${tokenToReplace}
     export async function ${loader}(ctx) {
+      const conf = require('@next-common-root/common-props.config');
       let dProps = {};
       let currentPageConfig = [...(conf()['${currentPage}'] ? conf()['${currentPage}']  : []), ...(conf()['${
     NAMES.COMMON_FILE_NAME

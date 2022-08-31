@@ -39,28 +39,27 @@ export default function appWithCommonProps(
       </CommonPropsHOCProvider>
     )
   }
-  let { currentPageConfig } = config
-  const currnetPageConfigExists =
-    currentPageConfig && currentPageConfig.length > 0
-  if (config.skipInitialProps && !currnetPageConfigExists)
+  if (config.skipInitialProps)
     return AppToCommonProps
 
   AppToCommonProps.getInitialProps = async (appCtx: any) => {
-    let appProps: object = { pageProps: {} }
+    // const conf = require('@next-common-root/common-props.config');
+    // let currentPageConfig = conf()[config.currentPage]
+    // let appProps: object = { pageProps: {} }
 
-    let dProps: any = {}
-    if (currentPageConfig) {
-      for (let i = 0; i < currentPageConfig.length; i++) {
-        dProps[currentPageConfig[i].key] = await currentPageConfig[i].data()
-      }
-    }
+    // let dProps: any = {}
+    // if (currentPageConfig) {
+    //   for (let i = 0; i < currentPageConfig.length; i++) {
+    //     dProps[currentPageConfig[i].key] = await currentPageConfig[i].data()
+    //   }
+    // }
+    let appProps: object = { pageProps: {} }
     if (AppToTranslate.getInitialProps) {
       appProps = (await AppToTranslate.getInitialProps(appCtx)) || {}
     }
 
     return {
       ...appProps,
-      common: dProps,
     }
   }
 

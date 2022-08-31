@@ -33,14 +33,12 @@ export default function templateWithHoc(
 
   let template = `
     import appWithCommonProps from 'next-common-props/appWithCommonProps'
-    import conf from '@next-common-root/common-props.config'
-    let currentPageConfig = conf()['${currentPage}']
     
     ${tokenToReplace}
     export default appWithCommonProps(__Page_Next_Common__, {
       isLoader: true,
       skipInitialProps: ${skipInitialProps},
-      currentPageConfig
+      currentPage: '${currentPage}'
     });
   `
 
